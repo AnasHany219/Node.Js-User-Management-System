@@ -1,0 +1,129 @@
+body {
+  font-size: 0.875rem;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.feather {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  padding: 48px 0 0;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: #fff;
+}
+
+@media (max-width: 767.98px) {
+  .sidebar {
+    top: 5rem;
+  }
+}
+
+.sidebar-sticky {
+  height: calc(100vh - 48px);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.sidebar .nav-link {
+  font-weight: 500;
+  color: #fff;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  padding: 0.75rem 1rem;
+  border-radius: 0.25rem;
+}
+
+.sidebar .nav-link .feather {
+  margin-right: 8px;
+  color: #dee2e6;
+  transition: color 0.3s ease;
+}
+
+.sidebar .nav-link.active {
+  color: #0056b3;
+  background-color: #e9ecef;
+}
+
+.sidebar .nav-link:hover {
+  color: #0056b3;
+  background-color: #e9ecef;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+  color: #007bff;
+}
+
+.sidebar-heading {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  padding: 1rem 1.5rem;
+  margin-top: 1rem;
+  color: #dee2e6;
+  letter-spacing: 0.1rem;
+}
+
+/* Navbar */
+.navbar-brand {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  background-color: rgba(0, 0, 0, 0.25);
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.25);
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 0.05rem;
+}
+
+.navbar .navbar-toggler {
+  top: 0.25rem;
+  right: 1rem;
+  border: none;
+  background: #007bff;
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease;
+}
+
+.navbar .navbar-toggler:hover {
+  background: #0056b3;
+}
+
+.navbar .form-control {
+  padding: 0.75rem 1rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: none;
+  border-radius: 0.25rem;
+}
+
+.navbar .form-control::placeholder {
+  color: #fff;
+  opacity: 1;
+}
+
+.form-control-dark {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.form-control-dark:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
+}
