@@ -1,4 +1,3 @@
-const customer = require('../model/customer');
 const Customer = require('../model/customer');
 const mongoose = require('mongoose');
 
@@ -72,7 +71,6 @@ exports.postCustomer = async (req, res) => {
     tel: req.body.tel,
   });
 
-  console.log(req.body);
   try {
     await Customer.create(newCustomer);
     res.redirect('/');
@@ -86,12 +84,12 @@ exports.postCustomer = async (req, res) => {
  * View Customer
  */
 exports.viewCustomer = async (req, res) => {
-  const locals = {
-    title: "NodeJS | View Customer",
-    description: "Free NodeJS User Managment System"
-  }
-
   try {
+    const locals = {
+      title: "NodeJS | View Customer",
+      description: "Free NodeJS User Managment System"
+    }
+
     const customer = await Customer.findOne({
       _id: req.params.id
     });
@@ -109,20 +107,20 @@ exports.viewCustomer = async (req, res) => {
  * GET /
  * Edit Customer
  */
-exports.editCustomer = async (req, res) => {
-  const locals = {
-    title: "NodeJS | Edit Customer",
-    description: "Free NodeJS User Managment System"
-  }
-
+exports.getEditCustomer = async (req, res) => {
   try {
     const customer = await Customer.findOne({
       _id: req.params.id
     });
 
-    res.render('customer/edit', {
+    const locals = {
+      title: "NodeJS | Edit Customer",
+      description: "Free NodeJs User Management System",
+    };
+
+    res.render("customer/edit", {
       locals,
-      customer
+      customer,
     });
   } catch (error) {
     console.log(error);
@@ -131,20 +129,20 @@ exports.editCustomer = async (req, res) => {
 
 /**
  * Post /
- * Edit Customer
+ * Update Customer
  */
-exports.postCustomer = async (req, res) => {
+exports.updateCustomer = async (req, res) => {
   try {
-    await customer.findByIdAndUpdate(req.params.id, {
+    await Customer.findByIdAndUpdate(req.params.id, {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
+      tel: req.body.tel,
+      email: req.body.email,
       details: req.body.details,
       updatedAt: Date.now(),
-      email: req.body.email,
-      tel: req.body.tel
     });
 
-    res.redirect(`/edit/${req.params.id}`);
+    await res.redirect(`/edit/${req.params.id}`);
   } catch (error) {
     console.log(error);
   }
@@ -156,7 +154,7 @@ exports.postCustomer = async (req, res) => {
  */
 exports.deleteCustomer = async (req, res) => {
   try {
-    await customer.deleteOne({
+    await Customer.deleteOne({
       _id: req.params.id
     });
     res.redirect('/');
@@ -175,21 +173,22 @@ exports.searchCustomers = async (req, res) => {
     description: "Free NodeJS User Managment System"
   }
 
-  let searchTerm = req.body.searchTerm;
-  const searchWithoutS_Chars = searchTerm.replace(/[a-zA-z0-9 ]/g, '');
   try {
+    let searchTerm = req.body.searchTerm;
+    const searchNoSpecialChar = searchTerm.replace(/[^a-zA-Z0-9 ]/g, "");
+
     const customers = await Customer.find({
       $or: [{
           firstName: {
-            $regex: new RegExp(searchWithoutS_Chars)
+            $regex: new RegExp(searchNoSpecialChar, "i")
           }
         },
         {
           lastName: {
-            $regex: new RegExp(searchWithoutS_Chars)
+            $regex: new RegExp(searchNoSpecialChar, "i")
           }
         },
-      ]
+      ],
     });
 
     res.render('search', {
